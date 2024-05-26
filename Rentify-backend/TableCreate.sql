@@ -1,0 +1,91 @@
+USE rentify;
+
+DROP TABLE IF EXISTS User;
+CREATE TABLE User (
+    UserID BINARY(16) PRIMARY KEY,
+    FirstName VARCHAR(80) NOT NULL,
+    LastName VARCHAR(80) NOT NULL,
+    Email VARCHAR(200) NOT NULL,
+    Mobile CHAR(10) NOT NULL,
+    Password CHAR(60) NOT NULL,
+    IsSeller CHAR(1) NOT NULL
+);
+
+DROP TABLE IF EXISTS RoomType;
+CREATE TABLE RoomType (
+    RoomTypeID INT(3) PRIMARY KEY AUTO_INCREMENT,
+    RoomType VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS FacilityType;
+CREATE TABLE FacilityType (
+    FacTypeID INT(3) PRIMARY KEY AUTO_INCREMENT,
+    Type VARCHAR(50) NOT NULL,
+    Distance DECIMAL(10, 2) NOT NULL
+);
+
+DROP TABLE IF EXISTS Property;
+CREATE TABLE Property (
+    PropID BINARY(16) PRIMARY KEY,
+    SellerID BINARY(16) NOT NULL,
+    Place VARCHAR(255) NOT NULL,
+    PinCode CHAR(8) NOT NULL,
+    Area VARCHAR(5) NOT NULL,
+    BathRooms BOOLEAN NOT NULL,
+    FOREIGN KEY (SellerID) REFERENCES User(UserID)
+);
+
+DROP TABLE IF EXISTS Rooms;
+CREATE TABLE Rooms (
+    RoomID BINARY(16) PRIMARY KEY,
+    RoomType INT(3) NOT NULL,
+    SellerID BINARY(16) NOT NULL,
+    PropID BINARY(16) NOT NULL,
+    Area VARCHAR(5) NOT NULL,
+    Image VARCHAR(255),
+    AttachedBathroom BOOLEAN NOT NULL,
+    FOREIGN KEY (RoomType) REFERENCES RoomType(RoomTypeID),
+    FOREIGN KEY (SellerID) REFERENCES User(UserID),
+    FOREIGN KEY (PropID) REFERENCES Property(PropID)
+);
+
+DROP TABLE IF EXISTS Facility;
+CREATE TABLE Facility (
+    FacID BINARY(16) PRIMARY KEY,
+    FacTypeID INT(3) NOT NULL,
+    SellerID BINARY(16) NOT NULL,
+    PropID BINARY(16) NOT NULL,
+    Description VARCHAR(200),
+    FOREIGN KEY (FacTypeID) REFERENCES FacilityType(FacTypeID),
+    FOREIGN KEY (SellerID) REFERENCES User(UserID),
+    FOREIGN KEY (PropID) REFERENCES Property(PropID)
+);
+
+DROP TABLE IF EXISTS InterestProp;
+CREATE TABLE InterestProp (
+    IntePropID BINARY(16) PRIMARY KEY,
+    PropID BINARY(16) NOT NULL,
+    BuyerID BINARY(16) NOT NULL,
+    FOREIGN KEY (BuyerID) REFERENCES User(UserID),
+    FOREIGN KEY (PropID) REFERENCES Property(PropID)
+
+);
+
+DROP TABLE IF EXISTS LikeProp;
+CREATE TABLE LikeProp (
+    LikeID BINARY(16) PRIMARY KEY,
+    BuyerID BINARY(16) NOT NULL,
+    PropID BINARY(16) NOT NULL,
+    FOREIGN KEY (BuyerID) REFERENCES User(UserID),
+    FOREIGN KEY (PropID) REFERENCES Property(PropID)
+);
+
+-- Unique constraints are not needed as primary keys are inherently unique
+
+-- Add unique constraints
+-- ALTER TABLE User ADD CONSTRAINT unique_UserID UNIQUE (UserID);
+-- ALTER TABLE Property ADD CONSTRAINT unique_PropID UNIQUE (PropID);
+-- ALTER TABLE Rooms ADD CONSTRAINT unique_RoomID UNIQUE (RoomID);
+-- ALTER TABLE Facility ADD CONSTRAINT unique_FacID UNIQUE (FacID);
+-- ALTER TABLE InterestProp ADD CONSTRAINT unique_IntePropID UNIQUE (IntePropID);
+-- ALTER TABLE LikeProp ADD CONSTRAINT unique_LikeID UNIQUE (LikeID);

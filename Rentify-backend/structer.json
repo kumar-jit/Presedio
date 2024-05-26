@@ -1,0 +1,39 @@
+{
+    "property":{
+        "salerId":"",       // saler Id
+        "place" : "",       //address of the property
+        "pincode" : "",     // pincode of that place
+        "area" : "",         // total area
+        "bedrooms" : [
+            {
+                "area" : "", //area of bedrooms
+                "image" : "", //image of the bedrooms
+                "attachedBathrrom" : "",    // yes or no
+                "roomType":""       //roomtype id
+            },
+            {
+                "area" : "", //area of bedrooms
+                "image" : "", //image of the bedrooms
+                "attachedBathrrom" : "",    // yes or no
+                "roomType":""       //roomtype id
+            }
+        ],
+        "bathRooms":"",      // total bathroom
+        "facility":[
+            {
+                "facType" : {
+                    "type" : "", // type of facility
+                    "distance" : "" // distance
+                }, // first create a facType with this information then take the Id and use in the facTypeId
+                "desc":""           //description
+            },
+            {
+                "facType" : {
+                    "type" : "", // type of facility
+                    "distance" : "" // distance
+                }, // first create a facType with this information then take the Id and use in the facTypeId
+                "desc":""           //description
+            }
+        ]
+    }
+}

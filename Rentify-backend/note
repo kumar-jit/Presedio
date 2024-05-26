@@ -1,0 +1,154 @@
+User : 
+UserId : UUID
+FirstName: String 80
+LastName: String 80
+Email: String 200
+Mobile: String 10
+IsSaler: Char 1
+
+Property:
+PropId : UUID
+SalerID: UUID (Forgain Key of User who is saller)
+Place: String Address
+PinCode:String 8
+Area : Number
+BedRooms : UUID (Forgain Key of Rooms)
+Bathrooms : Number
+Facility : UUID(Forgain Key of facility)
+
+
+Rooms:
+RoomID: UUID
+RoomType: Number (ForgainKey from Room Type)
+SalerID : UUID (ForgainKey Saler who Create the room details)
+Area: Number
+Image:
+AttachedBathroom:Boolean(Yes , No)
+
+RoomType:
+RoomTypeID:Number(3)
+RoomType:String(50)
+
+Facility:
+FacID: UUiD
+FaceTypeID: ID (Number, Forgain key, ID from FaceType)
+SalerID: UUID (Forgain Key of User who is saller)
+Desc: String 200
+
+FacilityType:
+FacTypeId: Number(3)
+Type: String
+Distance: Number
+
+InterestProp:
+IntePropID: UUID
+BuyerID: UUID (Forgain Key of User who is not saller)
+SalerID: UUID (Forgain Key of User who is saller)
+
+LikeProp:
+likeID: UUID
+BuyerID: UUID (Forgain Key of User who is not saller)
+PropID : UUID (Forgain Key of PropertyID)
+
+
+
+Kitchn: Boolean(Yes,No)
+Hall: Boolean(Yes,No)
+Daining: Boolean(Yes)
+
+
+-----------------------------------------------------
+
+
+Playload for Property for buyer
+
+propId : PropertyID
+sellerId : SellerID
+area : proerty area
+place : place
+pincode : pincode
+bathrooms : bathrooms
+rooms : [
+    roomType ( roomType.roomtype ): [   
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        },
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        }
+    ]
+    roomType (  roomType.roomtype ): [
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        },
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        }
+    ]
+]
+facility : [
+    {
+        "facType": Type from facType,
+        "desc" : Description from facility,
+        "distance" : disttance from facType
+    }
+]
+sellerName : user.name 
+sellerNumber : user.mobile ( if (select * from InterestProp where BuyerID = buyer.id AND PropID = property.propID ) this has only one records then ) 
+totalLike : do query on like table (select * from like where Like.PropID = propId) and return the length
+isLiked : (do query on like table (select * from like where like.propId = propId AND like.BuyerID = userID)) if there one records then return Yes else No
+
+
+
+
+----------------------
+
+propId : PropertyID
+sellerId : SellerID
+area : proerty area
+place : place
+pincode : pincode
+bathrooms : bathrooms
+rooms : [
+    roomType ( roomType.roomtype ): [   
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        },
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        }
+    ]
+    roomType (  roomType.roomtype ): [
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        },
+        {
+            "roomId":rooms.roomID,
+            "image":rooms.image,
+            "area":room.area
+        }
+    ]
+]
+facility : [
+    {
+        "facType": Type from facType,
+        "desc" : Description from facility,
+        "distance" : disttance from facType
+    }
+]
+
+totalLike : do query on like table (select * from like where Like.PropID = propId) and return the length
