@@ -26,3 +26,6 @@ Database Setup: Ensure MySQL is installed, create the database, and import the p
 Run the Server: npm start
 Postman Testing: Use Postman to test the APIs, set up authorization using JWT token.
 Email Server Configuration: Configure email server credentials in the .env file for email notifications.
+
+
+![rentify](https://github.com/kumar-jit/Presedio/assets/63392425/7b21a565-396a-4276-9bae-1fb62e94a462)
